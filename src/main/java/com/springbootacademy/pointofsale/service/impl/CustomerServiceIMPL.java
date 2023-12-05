@@ -7,7 +7,8 @@ import com.springbootacademy.pointofsale.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public String saveCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer(
-                customerDTO.getCustomerId(),
+
                 customerDTO.getCustomerName(),
                 customerDTO.getCustomerAddress(),
                 customerDTO.getCustomerSalary(),
@@ -59,7 +60,59 @@ public class CustomerServiceIMPL implements CustomerService {
         Optional<Customer> customer = customerRepo.findById(customerId);
         if (customer.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(
-                    customer.get().getCustomerId(),
+
+                    customer.get().getCustomerName(),
+                    customer.get().getCustomerAddress(),
+                    customer.get().getCustomerSalary(),
+                    customer.get().getNic(),
+                    customer.get().getContactNumber(),
+                    customer.get().isActiveStatus()
+
+            );
+            return customerDTO;
+        }else{
+            throw new RuntimeException("Not Found");
+        }
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> getCustomer = customerRepo.findAll();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        for (Customer customer: getCustomer ) {
+
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getNic(),
+                    customer.getContactNumber(),
+                    customer.isActiveStatus()
+            );
+            customerDTOList.add(customerDTO);
+
+            
+        }return customerDTOList;
+    }
+
+    @Override
+    public String deleteCustomer(int customerId) {
+        if (customerRepo.existsById(customerId)){
+            customerRepo.deleteById(customerId);
+            return "delete success";
+        }else {
+            System.out.println("user not exist");
+        }
+        return null;
+    }
+
+    @Override
+    public CustomerDTO getCustomerByNic(String nic) {
+        Optional<Customer> customer = customerRepo.findByNic(nic);
+        if (customer.isPresent()) {
+            CustomerDTO customerDTO = new CustomerDTO(
+
                     customer.get().getCustomerName(),
                     customer.get().getCustomerAddress(),
                     customer.get().getCustomerSalary(),
@@ -73,7 +126,26 @@ public class CustomerServiceIMPL implements CustomerService {
             throw new RuntimeException("Not Found");
         }
 
+    }
 
-        // return null;
+    @Override
+    public List<CustomerDTO> getAllCustomersByNameAndState(String name) {
+        List<Customer> getCustomer = customerRepo.findAllByCustomerNameAndActiveState(name,true);
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        for (Customer customer: getCustomer){
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getNic(),
+                    customer.getContactNumber(),
+                    customer.isActiveStatus()
+            );
+            customerDTOList.add(customerDTO);
+
+        }
+        return customerDTOList;
     }
 }

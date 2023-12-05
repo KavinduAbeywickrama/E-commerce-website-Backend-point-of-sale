@@ -10,11 +10,19 @@ public class CustomerDTO {
     private int contactNumber;
     private boolean activeStatus;
 
-    public CustomerDTO(int customerId, String customerName, String customerAddress, Double customerSalary, String nic, int contactNumber, boolean activeStatus) {
-
+    public CustomerDTO(String customerName, String customerAddress, Double customerSalary, String nic, int contactNumber, boolean activeStatus) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerSalary = customerSalary;
+        this.nic = nic;
+        this.contactNumber = contactNumber;
+        this.activeStatus = activeStatus;
     }
 
-    public CustomerDTO(int customerId, String customerName, String customerAddress, Double customerSalary, String nic, boolean activeStatus) {
+    public CustomerDTO() {
+    }
+
+    public CustomerDTO(int customerId, String customerName, String customerAddress, Double customerSalary, String nic, int contactNumber, boolean activeStatus) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;

@@ -1,9 +1,6 @@
 package com.springbootacademy.pointofsale.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -11,6 +8,7 @@ import jakarta.persistence.Table;
 
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
 
     @Column(name = "customer_name", length = 100, nullable = false)
@@ -33,6 +31,15 @@ public class Customer {
     private boolean activeStatus;
 
     public Customer() {
+    }
+
+    public Customer(String customerName, String customerAddress, Double customerSalary, String nic, int contactNumber, boolean activeStatus) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerSalary = customerSalary;
+        this.nic = nic;
+        this.contactNumber = contactNumber;
+        this.activeStatus = activeStatus;
     }
 
     public Customer(int customerId, String customerName, String customerAddress, Double customerSalary, String nic, int contactNumber, boolean activeStatus) {
