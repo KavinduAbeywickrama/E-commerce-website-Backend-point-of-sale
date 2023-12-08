@@ -7,6 +7,8 @@ public class CustomerDTO {
     private String customerAddress;
     private Double customerSalary;
     private String nic;
+
+
     private int contactNumber;
     private boolean activeStatus;
 

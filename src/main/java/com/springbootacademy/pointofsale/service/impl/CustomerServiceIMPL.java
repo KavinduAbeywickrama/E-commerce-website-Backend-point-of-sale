@@ -130,7 +130,8 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomersByNameAndState(String name) {
-        List<Customer> getCustomer = customerRepo.findAllByCustomerNameAndActiveState(name,true);
+        List<Customer> getCustomer = customerRepo.findAllByCustomerNameAndActiveStatus(name,true);
+        System.out.println("Customers found: " + customerRepo.findAllByCustomerNameAndActiveStatus(name,true));
         List<CustomerDTO> customerDTOList = new ArrayList<>();
 
         for (Customer customer: getCustomer){
@@ -144,7 +145,6 @@ public class CustomerServiceIMPL implements CustomerService {
                     customer.isActiveStatus()
             );
             customerDTOList.add(customerDTO);
-
         }
         return customerDTOList;
     }

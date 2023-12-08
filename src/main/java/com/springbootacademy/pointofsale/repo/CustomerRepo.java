@@ -10,11 +10,9 @@ import java.util.Optional;
 
 @Repository
 @EnableJpaRepositories
-public interface CustomerRepo extends JpaRepository<Customer,Integer> {
+public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
     Optional<Customer> findByNic(String nic);
 
-    List<Customer> findAllByCustomerNameAndActiveState(String name, Boolean activeStatus);
-
-
+    List<Customer> findAllByCustomerNameAndActiveStatus(String name, Boolean activeStatus);
 }

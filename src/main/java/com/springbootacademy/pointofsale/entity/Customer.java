@@ -1,5 +1,4 @@
 package com.springbootacademy.pointofsale.entity;
-
 import jakarta.persistence.*;
 
 
